@@ -83,7 +83,8 @@ coll_R     -> Colloids radius.
 
 coll_rho   -> Colloids density.
 
-coll_move  -> 0: colloids are moving.
+coll_move  -> 
+			  0: colloids are moving.
 
 	   		  1: colloids are not moving.
 
@@ -101,14 +102,16 @@ F0_magnetic     -> F0 parameter of the magnetic force.
 
 omega_magnetic  -> Angular velocity of the rotation of the magnetic field.
 
-new_sim -> 0: new simulation.
+new_sim -> 
+		   0: new simulation.
 
 	       1: existing simulation (the orientation of the magnetic field is not currently read in this option)
 
 ************************************
 Key of the output files
 ************************************
-micro: -- 2D --
+micro: 
+		-- 2D --
 
        1  -> Particle id
 
@@ -170,7 +173,8 @@ micro: -- 2D --
 
        17 -> czz       
 
-walls: -- 2D --
+walls: 
+		-- 2D --
 
        1 -> wall identity
 
@@ -188,7 +192,8 @@ walls: -- 2D --
 
        4 -> force z
 
-colloids: -- 2D --
+colloids: 
+	  -- 2D --
 
 	  1 -> x
 
@@ -238,7 +243,8 @@ colloids: -- 2D --
 
 	  15 -> torque z
 
-macro: 1 -> Step
+macro:
+	   1 -> Step
 
        2 -> Total kinetic energy
 
