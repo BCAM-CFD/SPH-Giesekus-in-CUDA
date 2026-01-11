@@ -1,6 +1,8 @@
 # SPH in CUDA
 SPH for Newtonian fluids with wall boundaries and suspensions of spherical particles, implemented in CUDA.
+
 Developed by Adolfo Vázquez-Quesada. 
+
 a.vazquez-quesada@fisfun.uned.es
 --------------------------------------------------
 
