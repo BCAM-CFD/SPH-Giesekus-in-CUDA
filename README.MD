@@ -111,6 +111,7 @@ new_sim ->
 Key of the output files
 ************************************
 micro: 
+
 		-- 2D --
 
        1  -> Particle id
@@ -174,6 +175,7 @@ micro:
        17 -> czz       
 
 walls: 
+
 		-- 2D --
 
        1 -> wall identity
@@ -193,6 +195,7 @@ walls:
        4 -> force z
 
 colloids: 
+
 	  -- 2D --
 
 	  1 -> x
@@ -243,7 +246,8 @@ colloids:
 
 	  15 -> torque z
 
-macro:
+macro: 
+
 	   1 -> Step
 
        2 -> Total kinetic energy
