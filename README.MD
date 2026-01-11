@@ -1,9 +1,9 @@
 # SPH in CUDA
-SPH for Newtonian fluids with wall boundaries and suspensions of spherical particles, implemented in CUDA.
+SPH for the Giesekus model with wall boundaries and suspensions of spherical particles, implemented in CUDA.
 
 Developed by Adolfo Vázquez-Quesada. 
 
-a.vazquez-quesada@fisfun.uned.es
+mail: a.vazquez-quesada@fisfun.uned.es
 --------------------------------------------------
 
 - Host variables and functions are declared in class_system.h.
