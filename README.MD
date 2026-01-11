@@ -257,7 +257,7 @@ To restart a simulation
 
 3.- Create a file 'input_particles.in' with the following columns:
 
-    	   --- 2D --
+       --- 2D --
 
 	   1.- x
 
@@ -277,7 +277,7 @@ To restart a simulation
 
 	   9.- cyy	   
 
-    	   --- 3D --
+       --- 3D --
 
 	   1.-  x
 
