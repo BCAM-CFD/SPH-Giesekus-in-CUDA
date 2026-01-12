@@ -1,4 +1,4 @@
-# SPH in CUDA
+# SPH Giesekus in CUDA
 SPH for the Giesekus model with wall boundaries and suspensions of spherical particles, implemented in CUDA.
 
 Developed by Adolfo Vázquez-Quesada. 
