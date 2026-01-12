@@ -84,24 +84,36 @@ __global__ void kernel_dcdt(real* __restrict__ dcdt_xx,
   }
 
   real tau_inv = 1.0/tau;
-  // dcdt_xx[i] = 2.0 * cgradvxxi + tau_inv * (1.0 - cxxi);
-  // dcdt_xy[i] = cgradvxyi + cgradvyxi - tau_inv * cxyi;
-  // dcdt_yy[i] = 2.0 * cgradvyyi + tau_inv * (1.0 - cyyi);
-
   real one_minus_cxxi    = 1.0 - cxxi;
   real one_minus_cxxi_sq = one_minus_cxxi * one_minus_cxxi;
   real one_minus_cyyi    = 1.0 - cyyi;
   real one_minus_cyyi_sq = one_minus_cyyi * one_minus_cyyi;  
   real cxyi_sq           = cxyi * cxyi;
-  dcdt_xx[i] = 2.0 * cgradvxxi + tau_inv * (one_minus_cxxi +
-					    alpha * (-one_minus_cxxi_sq + cxyi_sq));
-  dcdt_xy[i] = cgradvxyi + cgradvyxi - tau_inv * cxyi * alpha * (cxxi + cyyi - 2.0);
-  dcdt_yy[i] = 2.0 * cgradvyyi + tau_inv * (one_minus_cyyi +
-					    alpha * (-one_minus_cyyi_sq + cxyi_sq));
-  if (dim == 3) {
-  dcdt_xz[i] = cgradvxzi + cgradvzxi - tau_inv * cxzi;
-  dcdt_yz[i] = cgradvyzi + cgradvzyi - tau_inv * cyzi;
-  dcdt_zz[i] = 2.0 * cgradvzzi + tau_inv * (1.0 - czzi);  
+  if (dim == 2) { // Remember that c is symmetric
+    real c_minus_id_sq_xx = one_minus_cxxi_sq + cxyi_sq;
+    real c_minus_id_sq_xy = - cxyi * (one_minus_cxxi + one_minus_cyyi);
+    real c_minus_id_sq_yy = one_minus_cyyi_sq + cxyi_sq;
+    dcdt_xx[i] = 2.0 * cgradvxxi + tau_inv * (one_minus_cxxi - alpha * c_minus_id_sq_xx);
+    dcdt_xy[i] = cgradvxyi + cgradvyxi - tau_inv * (cxyi + alpha * c_minus_id_sq_xy);
+    dcdt_yy[i] = 2.0 * cgradvyyi + tau_inv * (one_minus_cyyi - alpha * c_minus_id_sq_yy);
   }
-  
+  else {   // dim == 3
+    real one_minus_czzi    = 1.0 - czzi;
+    real one_minus_czzi_sq = one_minus_czzi * one_minus_czzi;
+    real cxzi_sq = cxzi * cxzi;
+    real cyzi_sq = cyzi * cyzi;    
+    real c_minus_id_sq_xx = one_minus_cxxi_sq + cxyi_sq + cxzi_sq;
+    real c_minus_id_sq_xy = - cxyi * (one_minus_cxxi + one_minus_cyyi) + cxzi * cyzi;
+    real c_minus_id_sq_yy = one_minus_cyyi_sq + cxyi_sq + cyzi_sq;
+    real c_minus_id_sq_xz = - cxzi * (one_minus_cxxi + one_minus_czzi) + cxyi * cyzi;
+    real c_minus_id_sq_yz = - cyzi * (one_minus_cyyi + one_minus_czzi) + cxyi * cxzi;
+    real c_minus_id_sq_zz = one_minus_czzi_sq + cxzi_sq + cyzi_sq;
+    dcdt_xx[i] = 2.0 * cgradvxxi + tau_inv * (one_minus_cxxi - alpha * c_minus_id_sq_xx);
+    dcdt_xy[i] = cgradvxyi + cgradvyxi - tau_inv * (cxyi + alpha * c_minus_id_sq_xy);
+    dcdt_yy[i] = 2.0 * cgradvyyi + tau_inv * (one_minus_cyyi - alpha * c_minus_id_sq_yy);
+    dcdt_xz[i] = cgradvxzi + cgradvzxi - tau_inv * (cxzi + alpha * c_minus_id_sq_xz);
+    dcdt_yz[i] = cgradvyzi + cgradvzyi - tau_inv * (cyzi + alpha * c_minus_id_sq_yz);
+    dcdt_zz[i] = 2.0 * cgradvzzi + tau_inv * (one_minus_czzi - alpha * c_minus_id_sq_zz);
+  }
+    
 }
