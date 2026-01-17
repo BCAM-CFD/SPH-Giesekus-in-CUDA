@@ -1,3 +1,10 @@
+/******************************************************
+This code has been developed by Adolfo Vazquez-Quesada,
+from the Department of Fundamental Physics at UNED, in
+Madrid, Spain.
+email: a.vazquez-quesada@fisfun.uned.es
+********************************************************/
+
 #include "kernel_functions.h"
 #include "config.h"
 #include <math.h>
@@ -115,5 +122,5 @@ __global__ void kernel_dcdt(real* __restrict__ dcdt_xx,
     dcdt_yz[i] = cgradvyzi + cgradvzyi - tau_inv * (cyzi + alpha * c_minus_id_sq_yz);
     dcdt_zz[i] = 2.0 * cgradvzzi + tau_inv * (one_minus_czzi - alpha * c_minus_id_sq_zz);
   }
-    
+
 }

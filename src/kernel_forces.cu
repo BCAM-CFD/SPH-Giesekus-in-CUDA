@@ -1,3 +1,10 @@
+/******************************************************
+This code has been developed by Adolfo Vazquez-Quesada,
+from the Department of Fundamental Physics at UNED, in
+Madrid, Spain.
+email: a.vazquez-quesada@fisfun.uned.es
+********************************************************/
+
 #include "kernel_functions.h"
 #include "config.h"
 #include <math.h>
@@ -40,9 +47,6 @@ __global__ void kernel_forces(real* __restrict__ x,
   int i = threadIdx.x + blockIdx.x * blockDim.x;
   if (i >= N) return;
 
-  // if (i == 975)
-  //   printf("despues %f %f\n", fx[i], fy[i]);
-  
   int cx_i, cy_i, cz_i;
   int cx, cy, cz;
   real rijsq;  
@@ -65,6 +69,7 @@ __global__ void kernel_forces(real* __restrict__ x,
     Piyz_i0 =          - nkT * cyz[i];
     Pizz_i0 = press_i0 - nkT * czz[i];
   }
+    
   real dens_i0_inv = 1.0 / dens_i0;
   real dens_i0_inv_sq = dens_i0_inv * dens_i0_inv;
   real Pixx_over_dens_square_i0 = Pixx_i0 * dens_i0_inv_sq;
@@ -78,6 +83,7 @@ __global__ void kernel_forces(real* __restrict__ x,
     Piyz_over_dens_square_i0 = Piyz_i0 * dens_i0_inv_sq;
     Pizz_over_dens_square_i0 = Pizz_i0 * dens_i0_inv_sq;        
   }
+
   real dens_i;
   real press_i;
   real dens_i_inv;
@@ -834,7 +840,7 @@ __global__ void kernel_forces(real* __restrict__ x,
 	      fzi += aux_xz * eij[0] + aux_yz * eij[1] + aux_zz * eij[2];	      
 
 	      // Irreversible force
-	      real aux = gradW * dens_i_inv *dens_j_inv * r_inv;	      	    
+	      real aux  = gradW * dens_i_inv *dens_j_inv * r_inv;	      	    
 	      real aux1 = a * aux;
 	      real aux2 = b * aux * eij_dot_vij;
 	      fxi += aux1 * vij[0] + aux2 * eij[0]; 
@@ -847,6 +853,8 @@ __global__ void kernel_forces(real* __restrict__ x,
 	}
       }
     }
+
+
   
   //-- The force is summed up to the kernel variable --
   fx[i] += fxi;

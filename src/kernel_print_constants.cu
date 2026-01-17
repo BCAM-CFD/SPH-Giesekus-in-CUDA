@@ -1,3 +1,10 @@
+/******************************************************
+This code has been developed by Adolfo Vazquez-Quesada,
+from the Department of Fundamental Physics at UNED, in
+Madrid, Spain.
+email: a.vazquez-quesada@fisfun.uned.es
+********************************************************/
+
 #include "kernel_functions.h"
 #include "config.h"
 #include <stdio.h>
@@ -22,7 +29,7 @@ __global__ void kernel_print_constants() {
     printf("Transport coefficient b, b        = " REAL_FMT " \n", b);
     printf("np * k * T (Oldroyd-B model)      = " REAL_FMT " \n", nkT);
     printf("relaxation time tau (Oldroyd-B model) = " REAL_FMT " \n", tau);
-    printf("alpha (Giesekus model)            = " REAL_FMT " \n", tau);            
+    printf("alpha (Giesekus model)            = " REAL_FMT " \n", alpha);            
     printf("Time step, dt                     = " REAL_FMT " \n", dt);
     printf("Cell size                         = " REAL_FMT " " REAL_FMT " " REAL_FMT " \n", cell_size[0], cell_size[1], cell_size[2]);
     printf("Number of cells                   = %d %d %d \n", Ncells[0], Ncells[1], Ncells[2]);

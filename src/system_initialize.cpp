@@ -1,3 +1,10 @@
+/******************************************************
+This code has been developed by Adolfo Vazquez-Quesada,
+from the Department of Fundamental Physics at UNED, in
+Madrid, Spain.
+email: a.vazquez-quesada@fisfun.uned.es
+********************************************************/
+
 #include "class_system.h"
 #include "config.h"
 #include <math.h>
@@ -71,8 +78,8 @@ int class_system::initialize(int  Nxyz[3],
     y_top    = L[1];
   }
 
-    if (dim == 2)
-      cw = 63.0 / (478.0 * M_PI * rcut * rcut);
+  if (dim == 2)
+    cw = 63.0 / (478.0 * M_PI * rcut * rcut);
   else
     cw = 27.0 / (120.0 * M_PI * rcut * rcut * rcut);
   c_gradw = -15.0 *cw / rcut;
@@ -85,6 +92,9 @@ int class_system::initialize(int  Nxyz[3],
   rho0      = P0 * rho;
   a         = 5.0 * eta/3.0  - zeta;
   b         = 5.0 * (zeta + eta/3.0);
+  // a         = 5.0 * eta/3.0  - zeta;
+  // b         = 4.0 * (zeta + eta/3.0);  
+  
 
   //About Morris boundary conditions
   this->beta_max = 1.5;

@@ -1,5 +1,14 @@
+/******************************************************
+This code has been developed by Adolfo Vazquez-Quesada,
+from the Department of Fundamental Physics at UNED, in
+Madrid, Spain.
+email: a.vazquez-quesada@fisfun.uned.es
+********************************************************/
+
 #include "kernel_functions.h"
 #include "config.h"
+
+#include "stdio.h"
 
 //Part 2 of the function to move particles with a velocity Verlet method with lambda = 0.5.
 __global__ void kernel_move_sys_VV_part2(real* __restrict__ vx,
