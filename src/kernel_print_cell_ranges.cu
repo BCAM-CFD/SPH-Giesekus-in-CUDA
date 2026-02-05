@@ -20,24 +20,29 @@ __global__ void kernel_print_cell_ranges(int* __restrict__ cell_start,
 	 cell_end[i]);
 }
 
+
+
+//----------- This is a test -----------
 __global__ void kernel_cell_test(real* __restrict__ x,
 				 real* __restrict__ y,
 				 real* __restrict__ z,
-				 int* __restrict__ particle_cell,
-				 int* __restrict__ particle_index,
-				 int* __restrict__ cell_start,
-				 int* __restrict__ cell_end) {
+				 int*  __restrict__ particle_cell,
+				 int*  __restrict__ particle_index,
+				 int*  __restrict__ cell_start,
+				 int*  __restrict__ cell_end) {
 
   int i = threadIdx.x + blockIdx.x * blockDim.x;
   if (i >= 1) return;
 
-  int part = 29;
+  int part = 67289;
   int cx_i, cy_i, cz_i;
   int cx, cy, cz;  
   cx_i = floor(x[part] / cell_size[0]);
   cy_i = floor(y[part] / cell_size[1]);
   if ( dim == 3 )
     cz_i = floor(z[part] / cell_size[2]);
+
+  printf("%d %d\n", cx_i, cy_i);
 
   if (dim == 2)
     for (int dx = -1; dx <= 1; ++dx) 
@@ -92,4 +97,21 @@ __global__ void kernel_cell_test(real* __restrict__ x,
 	    }
 	  }  
 
+}
+
+//----------- This is a test -----------
+__global__ void kernel_cell_test2(real* __restrict__ x,
+				  real* __restrict__ y,
+				  real* __restrict__ z,
+				  int*  __restrict__ particle_cell,
+				  int*  __restrict__ particle_index,
+				  int*  __restrict__ cell_start,
+				  int*  __restrict__ cell_end) {
+  int i = threadIdx.x + blockIdx.x * blockDim.x;
+  if (i >= 1) return;
+
+  for (int j = 0; j < 49999; ++j)
+    if (particle_cell[j] < 0)
+      printf("aaa %d\n", particle_cell[j]);
+  
 }

@@ -29,10 +29,10 @@ __global__ void kernel_forces(real* __restrict__ x,
 			      real* __restrict__ press,
 			      real* __restrict__ dens,
 			      real* __restrict__ mass,
-			      int* __restrict__ particle_index,
-			      int* __restrict__ cell_start,
-			      int* __restrict__ cell_end,
-			      int* __restrict__ type,
+			      int*  __restrict__ particle_index,
+			      int*  __restrict__ cell_start,
+			      int*  __restrict__ cell_end,
+			      int*  __restrict__ type,
 			      real* __restrict__ coll_x,
 			      real* __restrict__ coll_y,
 			      real* __restrict__ coll_z,
@@ -173,8 +173,8 @@ __global__ void kernel_forces(real* __restrict__ x,
 	    rijsq = rij[0]*rij[0] + rij[1]*rij[1];
 	  
 	    if (rijsq < rcutsq) {
-	      real eij[2];	    
-	      
+	      real eij[2];
+
 	      //-- Remember that, from a line above, type[i] = type[j] only if type[i] = 0 
 	      real dens_j;
 	      real Pixx_j;
@@ -422,7 +422,7 @@ __global__ void kernel_forces(real* __restrict__ x,
 	      eij[0]           = rij[0] * r_inv;
 	      eij[1]           = rij[1] * r_inv;	
 	      real eij_dot_vij = eij[0] * vij[0] + eij[1] * vij[1];
-	    
+
 	      // Reversible force
 	      real aux_xx = -gradW * (Pixx_over_dens_square_i + Pixx_over_dens_square_j);
 	      real aux_xy = -gradW * (Pixy_over_dens_square_i + Pixy_over_dens_square_j);
@@ -431,14 +431,16 @@ __global__ void kernel_forces(real* __restrict__ x,
 	      fyi        += aux_xy * eij[0] + aux_yy * eij[1];
 
 	      // Irreversible force
-	      real aux  = gradW * dens_i_inv *dens_j_inv * r_inv;	      	    
-	      real aux1 = a * aux;
-	      real aux2 = b * aux * eij_dot_vij;
+	      real aux  = gradW * dens_i_inv *dens_j_inv * r_inv;
+	      real aux1;
+	      real aux2;
+	      aux1 = a * aux;
+	      aux2 = b * aux * eij_dot_vij;
 	      fxi      += aux1 * vij[0] + aux2 * eij[0]; 
 	      fyi      += aux1 * vij[1] + aux2 * eij[1];
-	    
+
 	    }
-	  
+	    
 	  }
       }
     }
@@ -840,9 +842,12 @@ __global__ void kernel_forces(real* __restrict__ x,
 	      fzi += aux_xz * eij[0] + aux_yz * eij[1] + aux_zz * eij[2];	      
 
 	      // Irreversible force
-	      real aux  = gradW * dens_i_inv *dens_j_inv * r_inv;	      	    
-	      real aux1 = a * aux;
-	      real aux2 = b * aux * eij_dot_vij;
+	      real aux  = gradW * dens_i_inv *dens_j_inv * r_inv;
+	      real aux1;
+	      real aux2;
+	      aux1 = a * aux;
+	      aux2 = b * aux * eij_dot_vij;
+	      
 	      fxi += aux1 * vij[0] + aux2 * eij[0]; 
 	      fyi += aux1 * vij[1] + aux2 * eij[1];
 	      fzi += aux1 * vij[2] + aux2 * eij[2];	      

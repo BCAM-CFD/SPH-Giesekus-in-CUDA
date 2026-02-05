@@ -54,7 +54,7 @@ __global__ void kernel_move_sys_VV_part2(real* __restrict__ vx,
       cyz[i] = cyz[i] + half_dt * dcdt_yz[i];
       czz[i] = czz[i] + half_dt * dcdt_zz[i];
     }
-    
+
   }
 }
 

@@ -88,7 +88,6 @@ __global__ void kernel_move_sys_VV_part1(real* __restrict__ x,
   if (dim == 3)
     zi = zi + vz[i] * dt;
   
-  
   // Periodic Boundary conditions
   if (xi < 0)
     xi = xi + L[0];
@@ -98,7 +97,7 @@ __global__ void kernel_move_sys_VV_part1(real* __restrict__ x,
   if (dim == 3)
     if (zi < 0)
       zi = zi + L[2];
-  
+
   if (xi > L[0])
     xi = xi - L[0];
   if (wall == 0) //--- If no wall ---    
@@ -107,7 +106,6 @@ __global__ void kernel_move_sys_VV_part1(real* __restrict__ x,
   if (dim == 3)
     if (zi > L[2])
       zi = zi - L[2];
-  
 
   // Data is stored  (v[i] is stored above, only when needed (when type_i == 0)
   x[i] = xi;

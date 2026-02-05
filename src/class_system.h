@@ -119,7 +119,7 @@ struct class_system {
   real P0;          // related to base density  
   real rho0;        // base density
 
-  real a, b;        // transport coefficients (related to viscosity)
+  real a, b;         // transport coefficients (related to viscosity)
 
   real cell_size[3];    // Size of the cells
   int  Ncells[3];       // Number of cells
