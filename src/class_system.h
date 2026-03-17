@@ -523,6 +523,9 @@ struct class_system {
 		     int   coll_move);
   int V_Verlet_step2(dim3 numBlocks,
 		     dim3 threadsPerBlock,
+		     real* k_x,
+		     real* k_y,
+		     real* k_z,		     
 		     real* k_vx,
 		     real* k_vy,
 		     real* k_vz,

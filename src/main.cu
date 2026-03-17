@@ -403,6 +403,7 @@ int main() {
     
     //---- Particles are moved (part2 of the Velocity Verlet algorithm) ----
     error = sys.V_Verlet_step2(numBlocks, threadsPerBlock,
+			       k_x, k_y, k_z,			       
 			       k_vx, k_vy, k_vz,
 			       k_cxx, k_cxy, k_cyy, k_cxz, k_cyz, k_czz,
 			       k_fx, k_fy, k_fz,

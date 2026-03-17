@@ -419,7 +419,7 @@ int class_system::read_input(int   N[3],
 	return 1;	
       }
       if (dim == 3)
-	if (coll_x_data[i][1] < 0 || coll_x_data[i][1] > L[2]) {
+	if (coll_x_data[i][2] < 0 || coll_x_data[i][2] > L[2]) {
 	  printf("System read input error: Colloid is out of the simulation box\n");
 	  return 1;	
 	}	
@@ -456,7 +456,7 @@ int class_system::read_input(int   N[3],
 	  //--- Periodic boundary conditions ---
 	  if (xij > 0.5 * L[0])
 	    xij -= L[0];
-	  if (xij > -0.5 * L[0])
+	  if (xij < -0.5 * L[0])
 	    xij += L[0];
 	  if (wall == 0) {   //If there are not walls	      	    
 	    if (yij > 0.5 * L[1])
@@ -466,7 +466,7 @@ int class_system::read_input(int   N[3],
 	  }
 	  if (zij > 0.5 * L[2])
 	    zij -= L[2];
-	  if (zij > -0.5 * L[2])
+	  if (zij < -0.5 * L[2])
 	    zij += L[2];	  
 	
 	  real rij = sqrt(xij*xij + yij*yij + zij*zij);
