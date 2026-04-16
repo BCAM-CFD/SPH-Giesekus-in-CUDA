@@ -35,5 +35,4 @@ __global__ void kernel_calculate_macro_vars(real* __restrict__ mass,
   atomicAdd_double_emulated(kin_energy, part_sum);
 #endif
 
-
 }
