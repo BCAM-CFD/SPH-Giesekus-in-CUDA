@@ -51,21 +51,9 @@ __global__ void kernel_move_sys_VV_part1(real* __restrict__ x,
 
     real half_dt           = 0.5 * dt;    
     real half_dt_over_mass = half_dt / mass[i];
-
-    //**** Eulerian, fixing vels ****
-    if (yi > 3.99 && yi < 4.01) {
-      vx[i] = vx[i];
-      vy[i] = vy[i];
-    }
-    else if (yi > 7.99 || yi < 0.01) {
-      vx[i] = vx[i];
-      vy[i] = vy[i];
-    }      
-    else {
-      // Velocity at t + dt/2 
-      vx[i] = vx[i] + half_dt_over_mass * fx[i];
-      vy[i] = vy[i] + half_dt_over_mass * fy[i];
-    }
+    // Velocity at t + dt/2 
+    vx[i] = vx[i] + half_dt_over_mass * fx[i];
+    vy[i] = vy[i] + half_dt_over_mass * fy[i];
 
     // Conformation tensor at t + dt/2
     cxx[i] = cxx[i] + half_dt * dcdt_xx[i]; 
@@ -95,11 +83,10 @@ __global__ void kernel_move_sys_VV_part1(real* __restrict__ x,
   }  //Particles with type_i > 2 where discarded above
 
   // Position at t + dt
-  // **** Eulerian ****
-  // xi = xi + vx[i] * dt;
-  // yi = yi + vy[i] * dt;
-  // if (dim == 3)
-  //   zi = zi + vz[i] * dt;
+  xi = xi + vx[i] * dt;
+  yi = yi + vy[i] * dt;
+  if (dim == 3)
+    zi = zi + vz[i] * dt;
   
   // Periodic Boundary conditions
   if (xi < 0)

@@ -11,10 +11,7 @@ email: a.vazquez-quesada@fisfun.uned.es
 #include "stdio.h"
 
 //Part 2 of the function to move particles with a velocity Verlet method with lambda = 0.5.
-__global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
-					 real* __restrict__ y,
-					 real* __restrict__ z,
-					 real* __restrict__ vx,
+__global__ void kernel_move_sys_VV_part2(real* __restrict__ vx,
 					 real* __restrict__ vy,
 					 real* __restrict__ vz,
 					 real* __restrict__ cxx,
@@ -42,20 +39,9 @@ __global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
     real half_dt           = 0.5 * dt;    
     real half_dt_over_mass = half_dt / mass[i];
 
-    //**** Eulerian, fixing vels ****
-    if (y[i] > 3.99 && y[i] < 4.01) {
-      vx[i] = vx[i];
-      vy[i] = vy[i];
-    }
-    else if (y[i] > 7.99 || y[i] < 0.01) {
-      vx[i] = vx[i];
-      vy[i] = vy[i];
-    }      
-    else {    
-      // Velocity at t + dt/2 
-      vx[i] = vx[i] + half_dt_over_mass * fx[i];
-      vy[i] = vy[i] + half_dt_over_mass * fy[i];
-    }
+    // Velocity at t + dt/2 
+    vx[i] = vx[i] + half_dt_over_mass * fx[i];
+    vy[i] = vy[i] + half_dt_over_mass * fy[i];
 
     // Conformation tensor at t + dt/2
     cxx[i] = cxx[i] + half_dt * dcdt_xx[i]; 
@@ -74,8 +60,12 @@ __global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
 }
 
 
+// // Fixing particles (Eulerian approach)
 // //Part 2 of the function to move particles with a velocity Verlet method with lambda = 0.5.
-// __global__ void kernel_move_sys_VV_part2(real* __restrict__ vx,
+// __global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
+// 					 real* __restrict__ y,
+// 					 real* __restrict__ z,
+// 					 real* __restrict__ vx,
 // 					 real* __restrict__ vy,
 // 					 real* __restrict__ vz,
 // 					 real* __restrict__ cxx,
@@ -103,9 +93,20 @@ __global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
 //     real half_dt           = 0.5 * dt;    
 //     real half_dt_over_mass = half_dt / mass[i];
 
-//     // Velocity at t + dt/2 
-//     vx[i] = vx[i] + half_dt_over_mass * fx[i];
-//     vy[i] = vy[i] + half_dt_over_mass * fy[i];
+//     //**** Eulerian, fixing vels ****
+//     if (y[i] > 3.99 && y[i] < 4.01) {
+//       vx[i] = vx[i];
+//       vy[i] = vy[i];
+//     }
+//     else if (y[i] > 7.99 || y[i] < 0.01) {
+//       vx[i] = vx[i];
+//       vy[i] = vy[i];
+//     }      
+//     else {    
+//       // Velocity at t + dt/2 
+//       vx[i] = vx[i] + half_dt_over_mass * fx[i];
+//       vy[i] = vy[i] + half_dt_over_mass * fy[i];
+//     }
 
 //     // Conformation tensor at t + dt/2
 //     cxx[i] = cxx[i] + half_dt * dcdt_xx[i]; 
@@ -122,4 +123,5 @@ __global__ void kernel_move_sys_VV_part2(real* __restrict__ x,
 
 //   }
 // }
+
 
