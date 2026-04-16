@@ -53,8 +53,7 @@ int class_system::V_Verlet_step2(dim3 numBlocks,
   cudaError_t cuda_err;
 
   //--- Fluid and walls particles are moved ---      
-  kernel_move_sys_VV_part2<<<numBlocks, threadsPerBlock>>>(k_x, k_y, k_z,
-							   k_vx, k_vy, k_vz,
+  kernel_move_sys_VV_part2<<<numBlocks, threadsPerBlock>>>(k_vx, k_vy, k_vz,
 							   k_cxx, k_cxy, k_cyy,
 							   k_cxz, k_cyz, k_czz,
 							   k_fx, k_fy, k_fz,
