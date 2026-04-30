@@ -4,6 +4,7 @@ SPH for the Giesekus model with wall boundaries and suspensions of spherical par
 Developed by Adolfo Vázquez-Quesada. 
 
 mail: a.vazquez-quesada@fisfun.uned.es
+
 --------------------------------------------------
 
 - Host variables and functions are declared in class_system.h.
