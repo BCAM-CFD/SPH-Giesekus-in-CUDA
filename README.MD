@@ -27,6 +27,18 @@ If you want to clean everthing before compiling again, just do
 
 make clean
 
+## Running a simulation
+
+You need to have the following files in the same directory (with the exact names shown below):
+
+- **SPH_program**: the executable.
+- **input**: a file containing the program inputs.
+
+To run the program, execute:
+
+./SPH_program
+
+
 ## Input variables 
 
 N       -> Number of particles in each direction ( in a rectangular grid)
